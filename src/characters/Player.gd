@@ -1,4 +1,4 @@
-extends 'res://Entity.gd'
+extends 'res://src/characters/Actors.gd'
 
 
 # Declare member variables here. Examples:
