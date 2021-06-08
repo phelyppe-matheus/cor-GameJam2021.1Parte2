@@ -8,10 +8,26 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Actor",
+"language": "GDScript",
+"path": "res://src/characters/Actors.gd"
+} ]
+_global_script_class_icons={
+"Actor": ""
+}
+
 [application]
 
 config/name="Cor"
 config/icon="res://icon.png"
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="traps"
+2d_physics/layer_3="world"
 
 [physics]
 
