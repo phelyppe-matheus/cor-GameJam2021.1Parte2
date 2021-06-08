@@ -1,4 +1,4 @@
-extends 'res://src/characters/Actors.gd'
+extends Actor
 
 
 # Declare member variables here. Examples:
