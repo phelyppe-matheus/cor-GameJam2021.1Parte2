@@ -16,13 +16,16 @@ func get_direction() -> Vector2:
 		-1.0 if Input.is_action_just_pressed("move_up") and is_on_floor() else 0.0
 	)
 
+
 func calculate_linear_velocity():
 	var direction:Vector2 = get_direction()
 	var new:Vector2 = _velocity
 	new.y += gravity * get_physics_process_delta_time()
-	new.x = speed.x * direction.x
+	if is_on_floor() or direction.x:
+		new.x = speed.x * direction.x
 
 	if (direction.y):
-		new.y = speed.y * direction.y
+		new.y = speed.y * -1
 
-	return new	
+	return new
+
