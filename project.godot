@@ -13,15 +13,26 @@ _global_script_classes=[ {
 "class": "Actor",
 "language": "GDScript",
 "path": "res://src/characters/Actors.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Caracter",
+"language": "GDScript",
+"path": "res://src/characters/Caracters.gd"
 } ]
 _global_script_class_icons={
-"Actor": ""
+"Actor": "",
+"Caracter": ""
 }
 
 [application]
 
 config/name="Cor"
+run/main_scene="res://src/levels/LVL1/intro.tscn"
 config/icon="res://icon.png"
+
+[global]
+
+open=false
 
 [input]
 
@@ -62,4 +73,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_environment="res://default_env.tres"
