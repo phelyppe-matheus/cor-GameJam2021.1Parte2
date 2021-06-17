@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://assets/player/Ghost/ghost-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://assets/player/Ghost/ghostDead-Sheet.png" type="Texture" id=2]
@@ -131,11 +131,18 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="CapsuleShape2D" id=26]
+radius = 16.6163
+height = 14.5925
+
 [node name="Ghost" type="KinematicBody2D"]
 script = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 25 )
-animation = "right"
+frame = 1
 playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 26 )
