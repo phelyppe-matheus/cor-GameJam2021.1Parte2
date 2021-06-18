@@ -1,31 +1,63 @@
 extends KinematicBody2D
 class_name Ghost
 
-export var gravity = 20
-export var velocity = Vector2(500, 1000)
-export var friction = 15
-export var aceleration = 20
-var _movimentation = Vector2(0,0)
+export var gravity = 30
+export var velocity = Vector2(600, 900)
+var friction = 100
 
+var _movimentation = Vector2(0,0)
+var player_gravity = true
 onready var animatedSprite = $AnimatedSprite
 
 
 func _physics_process(delta):
-	var direction = Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
-	Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
 	
-	if direction == Vector2(0,0):
-		_movimentation = _movimentation.move_toward(Vector2(0,0), friction)
-	else:
-		if direction.x > 0.0:
-			animatedSprite.play("right")
-		if direction.x < 0.0:
-			animatedSprite.play("left")
-		
-		_movimentation = _movimentation.move_toward(direction * velocity, 
-		aceleration)
+	_movimentation = gravity(_movimentation)
+	
+	_movimentation = get_movimentation(_movimentation)
+	
+	setAnimations(_movimentation)
+	
+	_movimentation = move_and_slide(_movimentation, Vector2.UP)
+
+
+func gravity(_movimentation):
+	var movimentation = _movimentation
+	movimentation.y += gravity 
+	return movimentation
+
+func setAnimations(_movimentation):
+	if _movimentation.x > 0.0:
+		animatedSprite.play("right")
+	
+	if _movimentation.x < 0.0:
+		animatedSprite.play("left")
+	
 	if _movimentation == Vector2(0,0):
 		animatedSprite.play("default")
-	print(_movimentation)
-	move_and_slide(_movimentation)
+
+
+func get_movimentation(_movimentation):
+	var direction = Vector2(get_x_direction(),get_y_direction()).normalized()
+	var movimentation: Vector2 = _movimentation
+	if direction != Vector2.ZERO:
+		if direction.x != 0:
+			movimentation.x = velocity.x * direction.x
+		if direction.y != 0:
+			movimentation.y = velocity.y * direction.y * -1
+	else:
+		movimentation.x = move_toward(movimentation.x, 0 , friction)
+	return movimentation
+
+
+func get_x_direction():
+	return float(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
+
+
+func get_y_direction():
+	if is_on_floor():
+		return Input.get_action_strength("move_up")	
+	return 0
+
+
 
