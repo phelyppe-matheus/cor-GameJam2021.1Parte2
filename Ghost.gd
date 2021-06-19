@@ -4,10 +4,19 @@ class_name Ghost
 export var gravity = 30
 export var velocity = Vector2(600, 900)
 var friction = 100
+var _wind = 0
 
 var _movimentation = Vector2(0,0)
 var player_gravity = true
 onready var animatedSprite = $AnimatedSprite
+
+
+
+func _on_wind_body_entered(body):
+	_wind = 1
+
+func _on_wind_body_exited(body):
+	_wind = 0
 
 
 func _physics_process(delta):
@@ -17,9 +26,13 @@ func _physics_process(delta):
 	_movimentation = get_movimentation(_movimentation)
 	
 	setAnimations(_movimentation)
-	
-	_movimentation = move_and_slide(_movimentation, Vector2.UP)
-
+	if not _wind:
+		_movimentation = move_and_slide(_movimentation, Vector2.UP)
+	else:
+		_wind += 30 if _wind < 700 else 700
+		_movimentation.x -= _wind
+		_movimentation.y = 10
+		_movimentation = move_and_slide(_movimentation, Vector2.UP)
 
 func gravity(_movimentation):
 	var movimentation = _movimentation
@@ -56,8 +69,6 @@ func get_x_direction():
 
 func get_y_direction():
 	if is_on_floor():
-		return Input.get_action_strength("move_up")	
+		return Input.get_action_strength("move_up")
 	return 0
-
-
 
