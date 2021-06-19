@@ -133,7 +133,7 @@ animations = [ {
 
 [sub_resource type="CapsuleShape2D" id=26]
 radius = 16.6163
-height = 14.5925
+height = 35.2438
 
 [node name="Ghost" type="KinematicBody2D"]
 script = ExtResource( 4 )
@@ -141,8 +141,12 @@ script = ExtResource( 4 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 25 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.8909, 13.3635 )
 shape = SubResource( 26 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
