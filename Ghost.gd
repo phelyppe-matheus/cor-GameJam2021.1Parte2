@@ -2,7 +2,8 @@ extends KinematicBody2D
 class_name Ghost
 
 export var gravity = 30
-export var velocity = Vector2(600, 900)
+#export var velocity = Vector2(600, 900)
+export var velocity = Vector2(600, 600)
 var friction = 100
 
 var _movimentation = Vector2(0,0)
@@ -12,7 +13,7 @@ onready var animatedSprite = $AnimatedSprite
 
 func _physics_process(delta):
 	
-	_movimentation = gravity(_movimentation)
+	#_movimentation = gravity(_movimentation)
 	
 	_movimentation = get_movimentation(_movimentation)
 	
@@ -44,9 +45,11 @@ func get_movimentation(_movimentation):
 		if direction.x != 0:
 			movimentation.x = velocity.x * direction.x
 		if direction.y != 0:
-			movimentation.y = velocity.y * direction.y * -1
+			#movimentation.y = velocity.y * direction.y * -1
+			movimentation.y = velocity.y * direction.y
 	else:
-		movimentation.x = move_toward(movimentation.x, 0 , friction)
+		#movimentation.x = move_toward(movimentation.y, 0 , friction)
+		movimentation = movimentation.move_toward(Vector2.ZERO , friction)
 	return movimentation
 
 
@@ -55,9 +58,10 @@ func get_x_direction():
 
 
 func get_y_direction():
-	if is_on_floor():
-		return Input.get_action_strength("move_up")	
-	return 0
+	return float(Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))	
+	#if is_on_floor():
+	#	return Input.get_action_strength("move_up")	
+	#return 0
 
 
 
