@@ -42,3 +42,8 @@ tile_data = PoolIntArray( 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0
 
 [node name="Ghost" parent="." instance=ExtResource( 1 )]
 position = Vector2( 857.022, 250.66 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="Ghost" method="_on_Timer_timeout"]

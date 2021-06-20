@@ -11,8 +11,9 @@ var player_gravity = true
 onready var animatedSprite = $AnimatedSprite
 
 onready var flying = false
-onready var flying_pass = 4
-
+onready var flying_pass = 1
+onready var time_flying = 0
+onready var default_time_flying = 15
 
 func _physics_process(delta):
 	
@@ -28,7 +29,6 @@ func _physics_process(delta):
 func gravity(_movimentation):
 	var movimentation = _movimentation
 	if !flying:
-		print('caindo')
 		movimentation.y += gravity 
 	return movimentation
 
@@ -75,12 +75,23 @@ func get_y_direction():
 		return 0
 
 func check_actions():
+	stop_flying()
 	check_flying_press()	
-
+	
+func stop_flying():
+	if time_flying == 0:
+		flying = false
 
 func check_flying_press():
-	print (flying)
 	if Input.get_action_strength("ui_accept"):
-		flying = true	
+		if flying_pass > 0:
+			flying_pass = flying_pass - 1
+			flying = true	
+			time_flying = default_time_flying
 	
-	
+func add_flying_pass():
+	flying_pass = flying_pass + 1
+
+func _on_Timer_timeout():
+	if time_flying > 0: 
+		time_flying = time_flying - 1
