@@ -27,8 +27,10 @@ _global_script_class_icons={
 [application]
 
 config/name="Cor"
-run/main_scene="res://src/levels/introducao/Introducao.tscn"
+run/main_scene="res://src/levels/menu.tscn"
 config/icon="res://icon.png"
+config/macos_native_icon="res://assets/Capa/capa.png"
+config/windows_native_icon="res://assets/Capa/capa.png"
 
 [global]
 

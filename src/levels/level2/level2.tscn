@@ -1,0 +1,28 @@
+[gd_scene format=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+margin_left = 397.813
+margin_top = 269.762
+margin_right = 621.813
+margin_bottom = 342.762
+text = "GOSTOU?
+
+DEIXE SEU COMENTÁRIO."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.129412, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

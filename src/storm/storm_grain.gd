@@ -14,7 +14,7 @@ var grains = []
 var shape
 
 
-class Bullet:
+class Grain:
 	var position = Vector2()
 	var speed = 1.0
 	# The body is stored as a RID, which is an "opaque" way to access resources.
@@ -31,7 +31,7 @@ func _ready():
 	Physics2DServer.shape_set_data(shape, 8)
 
 	for _i in GRAIN_COUNT:
-		var grain = Bullet.new()
+		var grain = Grain.new()
 		# Give each grain its own speed.
 		grain.speed = rand_range(SPEED_MIN, SPEED_MAX)
 		grain.body = Physics2DServer.body_create()

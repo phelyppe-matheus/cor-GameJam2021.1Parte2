@@ -29,7 +29,6 @@ func _physics_process(delta):
 	else:
 		_wind += calculate_wind()
 		_movimentation.x -= _wind
-		_movimentation.y = 10
 		_movimentation = move_and_slide(_movimentation, Vector2.UP)
 
 
