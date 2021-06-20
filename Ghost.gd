@@ -1,22 +1,25 @@
 extends KinematicBody2D
 class_name Ghost
 
-export var gravity = 30
-#export var velocity = Vector2(600, 900)
-export var velocity = Vector2(600, 600)
+export var gravity = 40
+export var velocity = Vector2(600, 800)
+export var velocity_flying = Vector2(600, 600)
 var friction = 100
 
 var _movimentation = Vector2(0,0)
 var player_gravity = true
 onready var animatedSprite = $AnimatedSprite
 
+onready var flying = false
+onready var flying_pass = 4
+
 
 func _physics_process(delta):
 	
-	#_movimentation = gravity(_movimentation)
+	_movimentation = gravity(_movimentation)
 	
 	_movimentation = get_movimentation(_movimentation)
-	
+	check_actions()
 	setAnimations(_movimentation)
 	
 	_movimentation = move_and_slide(_movimentation, Vector2.UP)
@@ -24,7 +27,9 @@ func _physics_process(delta):
 
 func gravity(_movimentation):
 	var movimentation = _movimentation
-	movimentation.y += gravity 
+	if !flying:
+		print('caindo')
+		movimentation.y += gravity 
 	return movimentation
 
 func setAnimations(_movimentation):
@@ -45,11 +50,15 @@ func get_movimentation(_movimentation):
 		if direction.x != 0:
 			movimentation.x = velocity.x * direction.x
 		if direction.y != 0:
-			#movimentation.y = velocity.y * direction.y * -1
-			movimentation.y = velocity.y * direction.y
+			if flying:
+				movimentation.y = velocity_flying.y * direction.y
+			else:
+				movimentation.y = velocity.y * direction.y * -1
 	else:
-		#movimentation.x = move_toward(movimentation.y, 0 , friction)
-		movimentation = movimentation.move_toward(Vector2.ZERO , friction)
+		if flying:
+			movimentation = movimentation.move_toward(Vector2.ZERO , friction)
+		else:
+			movimentation.x = move_toward(movimentation.x, 0 , friction)
 	return movimentation
 
 
@@ -58,10 +67,20 @@ func get_x_direction():
 
 
 func get_y_direction():
-	return float(Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))	
-	#if is_on_floor():
-	#	return Input.get_action_strength("move_up")	
-	#return 0
+	if flying:
+		return float(Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))	
+	else:
+		if is_on_floor():
+			return float(Input.get_action_strength("move_up"))	
+		return 0
+
+func check_actions():
+	check_flying_press()	
 
 
-
+func check_flying_press():
+	print (flying)
+	if Input.get_action_strength("ui_accept"):
+		flying = true	
+	
+	
