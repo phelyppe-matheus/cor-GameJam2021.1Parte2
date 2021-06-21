@@ -15,21 +15,23 @@ onready var flying_pass = 3
 onready var time_flying = 0
 onready var default_time_flying = 10
 
-onready var brushRight = $BrushRight
-onready var brushLeft = $BrushLeft
+onready var brushRight = $Brush/BrushRight
+onready var brushRightCollision = $Brush/Right
+onready var brushLeft = $Brush/BrushLeft
+onready var brushLeftCollision = $Brush/Left
 
-onready var has_brush = false
+onready var has_brush = true
 onready var paint_side = 1
 onready var paint_time = 0
 onready var paint_time_default = 2
 
 func _ready():
 	brushRight.visible = false
+	brushRightCollision.disabled = true
 	brushLeft.visible = false
+	brushLeftCollision.disabled = true
 
 func _physics_process(delta):
-	print(flying)
-	print(flying_pass)
 	_movimentation = gravity(_movimentation)
 	
 	_movimentation = get_movimentation(_movimentation)
@@ -118,9 +120,11 @@ func paint():
 		paint_time = paint_time_default
 		if paint_side == 1:
 			brushRight.visible = true
+			brushRightCollision.disabled = false
 			brushRight.play('right')
 		else:
 			brushLeft.visible = true
+			brushLeftCollision.disabled = false
 			brushLeft.play('left')
 
 	
@@ -143,6 +147,8 @@ func _on_Timer_timeout():
 	if paint_time == 0:
 		brushRight.stop()
 		brushRight.visible = false
+		brushLeftCollision.disabled = true
+		brushRightCollision.disabled = true
 		brushLeft.stop()
 		brushLeft.visible = false
 	
