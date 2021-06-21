@@ -11,7 +11,7 @@ var player_gravity = true
 onready var animatedSprite = $AnimatedSprite
 
 onready var flying = false
-onready var flying_pass = 3
+onready var flying_pass = 0
 onready var time_flying = 0
 onready var default_time_flying = 10
 
@@ -20,7 +20,7 @@ onready var brushRightCollision = $Brush/Right
 onready var brushLeft = $Brush/BrushLeft
 onready var brushLeftCollision = $Brush/Left
 
-onready var has_brush = true
+onready var has_brush = false
 onready var paint_side = 1
 onready var paint_time = 0
 onready var paint_time_default = 2
