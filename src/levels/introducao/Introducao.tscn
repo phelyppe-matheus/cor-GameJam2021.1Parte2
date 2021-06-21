@@ -164,6 +164,7 @@ __meta__ = {
 layer = -1
 
 [node name="ColorRect" type="ColorRect" parent="background"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0666667, 0.0980392, 0.0941176, 1 )
@@ -174,6 +175,7 @@ __meta__ = {
 [node name="shade" type="CanvasLayer" parent="."]
 
 [node name="shade-horizontal" type="NinePatchRect" parent="shade"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1024.0
@@ -186,6 +188,7 @@ __meta__ = {
 }
 
 [node name="shade-vertical" type="NinePatchRect" parent="shade"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = SubResource( 4 )
@@ -205,6 +208,9 @@ tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 1, -65535, 0, 1, -65534, 0, 1, -6
 [node name="Ghost" parent="." instance=ExtResource( 2 )]
 position = Vector2( 143.746, 49.0971 )
 
+[node name="AnimatedSprite" parent="Ghost" index="0"]
+frame = 0
+
 [node name="FakeBrush2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1216.57, 2679.55 )
 
@@ -212,7 +218,7 @@ position = Vector2( 1216.57, 2679.55 )
 position = Vector2( 2668.87, 1643.71 )
 
 [node name="Pincel" parent="." instance=ExtResource( 5 )]
-position = Vector2( 72.9435, 3120.59 )
+position = Vector2( 2316.46, 3016.32 )
 next_scene = ExtResource( 4 )
 
 [editable path="Ghost"]
