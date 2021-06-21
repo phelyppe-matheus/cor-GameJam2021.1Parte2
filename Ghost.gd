@@ -10,10 +10,21 @@ var _movimentation = Vector2(0,0)
 var player_gravity = true
 onready var animatedSprite = $AnimatedSprite
 
-onready var flying = false
-onready var flying_pass = 1
-onready var time_flying = 0
-onready var default_time_flying = 15
+var flying = false
+var flying_pass = 1
+var time_flying = 0
+var default_time_flying = 15
+
+onready var brushRight = $BrushRight
+onready var brushLeft = $BrushLeft
+
+var paint_side = 1
+var paint_time = 0
+var paint_time_default = 2
+
+func _ready():
+	brushRight.visible = false
+	brushLeft.visible = false
 
 func _physics_process(delta):
 	
@@ -63,8 +74,13 @@ func get_movimentation(_movimentation):
 
 
 func get_x_direction():
-	return float(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
-
+	var d = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	if d > 0:
+		paint_side = 1
+	else:
+		if d < 0:
+			paint_side = -1
+	return float(d)
 
 func get_y_direction():
 	if flying:
@@ -74,24 +90,58 @@ func get_y_direction():
 			return float(Input.get_action_strength("move_up"))	
 		return 0
 
+
 func check_actions():
 	stop_flying()
-	check_flying_press()	
-	
-func stop_flying():
-	if time_flying == 0:
-		flying = false
+	check_flying_press()
+	check_paint_press()
 
+
+func check_paint_press():
+	if Input.get_action_strength("paint"):
+		paint()
+	
+
+		
 func check_flying_press():
 	if Input.get_action_strength("ui_accept"):
 		if flying_pass > 0:
 			flying_pass = flying_pass - 1
 			flying = true	
 			time_flying = default_time_flying
+
+func paint():
+	if paint_time <=0:
+		paint_time = paint_time_default
+		if paint_side == 1:
+			brushRight.visible = true
+			brushRight.play('right')
+		else:
+			brushLeft.visible = true
+			brushLeft.play('left')
+
+	
+func stop_flying():
+	if time_flying == 0:
+		flying = false
+
 	
 func add_flying_pass():
 	flying_pass = flying_pass + 1
 
+
 func _on_Timer_timeout():
 	if time_flying > 0: 
 		time_flying = time_flying - 1
+		
+	if paint_time >= 0: 
+		paint_time = paint_time - 1
+		
+	if paint_time == 0:
+		brushRight.stop()
+		brushRight.visible = false
+		brushLeft.stop()
+		brushLeft.visible = false
+	
+	
+	
