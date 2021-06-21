@@ -10,24 +10,26 @@ var _movimentation = Vector2(0,0)
 var player_gravity = true
 onready var animatedSprite = $AnimatedSprite
 
-var flying = false
-var flying_pass = 3
-var time_flying = 0
-var default_time_flying = 10
+onready var flying = false
+onready var flying_pass = 3
+onready var time_flying = 0
+onready var default_time_flying = 10
 
 onready var brushRight = $BrushRight
 onready var brushLeft = $BrushLeft
 
-var paint_side = 1
-var paint_time = 0
-var paint_time_default = 2
+onready var has_brush = false
+onready var paint_side = 1
+onready var paint_time = 0
+onready var paint_time_default = 2
 
 func _ready():
 	brushRight.visible = false
 	brushLeft.visible = false
 
 func _physics_process(delta):
-	
+	print(flying)
+	print(flying_pass)
 	_movimentation = gravity(_movimentation)
 	
 	_movimentation = get_movimentation(_movimentation)
@@ -104,14 +106,15 @@ func check_paint_press():
 
 		
 func check_flying_press():
-	if Input.get_action_strength("ui_accept"):
-		if flying_pass > 0:
-			flying_pass = flying_pass - 1
-			flying = true	
-			time_flying = default_time_flying
+	if !flying:
+		if Input.get_action_strength("ui_accept"):
+			if flying_pass > 0:
+				flying_pass = flying_pass - 1
+				flying = true	
+				time_flying = default_time_flying
 
 func paint():
-	if paint_time <=0:
+	if paint_time <=0 and has_brush:
 		paint_time = paint_time_default
 		if paint_side == 1:
 			brushRight.visible = true
@@ -145,3 +148,7 @@ func _on_Timer_timeout():
 	
 	
 	
+
+
+func _on_paintBrush_body_entered(body):
+	has_brush = true
