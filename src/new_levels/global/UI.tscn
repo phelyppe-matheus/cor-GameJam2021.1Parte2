@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/ui/label_HP_bg.png" type="Texture" id=2]
+[ext_resource path="res://assets/player/Ghost/flyIcon.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/Comfortaa-Bold.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+extra_spacing_top = 11
+font_data = ExtResource( 4 )
+
+[node name="UI" type="MarginContainer"]
+anchor_right = 1.0
+margin_left = 20.0
+margin_top = 100.0
+margin_right = 20.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 99.5531, 136.154 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="flyingCounter" type="MarginContainer" parent="HBoxContainer"]
+margin_right = 100.0
+margin_bottom = 40.0
+
+[node name="bg" type="NinePatchRect" parent="HBoxContainer/flyingCounter"]
+margin_right = 100.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+texture = ExtResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/flyingCounter/bg"]
+margin_right = 50.0
+margin_bottom = 40.0
+texture = ExtResource( 3 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer/flyingCounter/bg"]
+margin_left = 50.0
+margin_right = 100.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 1 )
+text = "10
+"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
