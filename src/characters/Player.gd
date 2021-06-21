@@ -1,4 +1,3 @@
-extends Actor
 
 func _physics_process(delta):
 	_velocity = calculate_linear_velocity()
