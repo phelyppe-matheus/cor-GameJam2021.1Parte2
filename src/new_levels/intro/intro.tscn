@@ -600,8 +600,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -24.0416
 margin_top = -9.89948
-margin_right = -24.0416
-margin_bottom = -9.89948
+margin_right = 175.958
+margin_bottom = 90.1005
 color = Color( 0.0666667, 0.0980392, 0.0941176, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -646,7 +646,7 @@ scale = Vector2( 0.625735, 1 )
 polygon = PoolVector2Array( 22.6772, -5.44452, 49.5542, -28.1487, 58.9609, -13.0126, 87.1816, -26.4669, 144.968, -20.5806, 170.501, -2.92181, 196.034, 25.6686, 201.41, 54.2591, 93.9014, 58.4636, -27.0454, 52.5773, -27.0454, 37.4412, 5.20703, 17.2597 )
 
 [node name="Ghost" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1354.97, 253.728 )
+position = Vector2( 210.968, 313.728 )
 
 [connection signal="timeout" from="Timer" to="Ghost" method="_on_Timer_timeout"]
 [connection signal="body_entered" from="paintBrush" to="Ghost" method="_on_paintBrush_body_entered"]
