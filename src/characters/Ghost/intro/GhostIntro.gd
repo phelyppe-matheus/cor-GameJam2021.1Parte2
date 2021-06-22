@@ -8,9 +8,10 @@ var _movimentation = Vector2(0,0)
 var player_gravity = true
 onready var animatedSprite = $AnimatedSprite
 
+onready var number_brush = 0
 
 func _physics_process(delta):
-
+	
 	_movimentation = get_movimentation()
 
 	setAnimations()
@@ -58,3 +59,6 @@ func get_direction():
 		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	)
 
+func get_pincel():
+	number_brush = number_brush + 1;
+	print(number_brush)

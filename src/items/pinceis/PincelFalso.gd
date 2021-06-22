@@ -7,3 +7,4 @@ func _on_PincelFalso_body_entered(body):
 	if body.name == "GhostIntro":
 		sprite.visible = false
 		collisionShape2d.disabled = true
+		body.get_pincel()
